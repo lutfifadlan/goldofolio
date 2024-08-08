@@ -42,7 +42,7 @@ const Dashboard = () => {
   const [goldPortfolio, setGoldPortfolio] = useState<IGoldPortfolio[]>([]);
   const [suggestedGoldPrice, setSuggestedGoldPrice] = useState<GoldBuyingPrice[]>([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isProSubscriber, setIsProSubscriber] = useState(false); // New state for tracking subscription status
+  // const [isProSubscriber, setIsProSubscriber] = useState(false); // New state for tracking subscription status
 
   const router = useRouter();
   const todayDate = new Date().toISOString().slice(0, 10);
@@ -116,16 +116,16 @@ const Dashboard = () => {
     document.body.className = isDarkMode ? 'dark' : '';
   }, [isDarkMode]);
 
-  useEffect(() => {
-    const checkSubscriptionStatus = async () => {
-      const status = await fetchSubscriptionStatus(user?.email as string);
-      setIsProSubscriber(status);
-    };
+  // useEffect(() => {
+  //   const checkSubscriptionStatus = async () => {
+  //     const status = await fetchSubscriptionStatus(user?.email as string);
+  //     setIsProSubscriber(status);
+  //   };
 
-    if (user) {
-      checkSubscriptionStatus();
-    }
-  }, [user]);
+  //   if (user) {
+  //     checkSubscriptionStatus();
+  //   }
+  // }, [user]);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -173,10 +173,10 @@ const Dashboard = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!isProSubscriber && goldPortfolio.length >= 2) {
-      toast.error("Please subscribe to Pro Plan to add more portfolios", toastConfig);
-      return;
-    }
+    // if (!isProSubscriber && goldPortfolio.length >= 2) {
+    //   toast.error("Please subscribe to Pro Plan to add more portfolios", toastConfig);
+    //   return;
+    // }
     const newData = { amount: parseFloat(formData.amount), date: formData.date, price: parseFloat(formData.price) };
     setGoldData([...goldData, newData]);
     await insertGoldPortfolio(formData.amount, formData.date, formData.price, user?.id as string);
@@ -370,7 +370,7 @@ const Dashboard = () => {
           </button>
         </div>
       </form>
-      {!isProSubscriber && <Subscribe />}
+      {/* {!isProSubscriber && <Subscribe />} */}
       <footer className="mt-auto bg-white w-full border-t-2 border-gray-200 p-2 md:p-4 dark:bg-gray-800 dark:border-gray-700 sticky bottom-0 z-50">
         <div className="text-xs md:text-sm max-w-screen-xl mx-auto flex flex-col md:flex-row justify-between items-center">
             <div>
